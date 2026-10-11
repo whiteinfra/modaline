@@ -7,3 +7,13 @@ def test_login_success(client):
 def test_login_wrong_password(client):
     r = client.post("/api/auth/login", json={"email": "student@modaline.ua", "password": "wrong"})
     assert r.status_code == 401
+
+
+def test_login_email_case_insensitive(client):
+    r = client.post("/api/auth/login", json={"email": " Student@ModaLine.UA ", "password": "Passw0rd!"})
+    assert r.status_code == 200
+
+
+def test_login_empty_password_returns_400(client):
+    r = client.post("/api/auth/login", json={"email": "student@modaline.ua"})
+    assert r.status_code == 400

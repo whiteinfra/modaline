@@ -11,8 +11,10 @@ USERS = {"student@modaline.ua": generate_password_hash("Passw0rd!")}
 @bp.post("/login")
 def login():
     data = request.get_json(silent=True) or {}
-    email = data.get("email", "")
-    password = data["password"]
+    email = str(data.get("email", "")).strip().lower()
+    password = str(data.get("password", ""))
+    if not email or not password:
+        return jsonify(error="Потрібно вказати email і пароль"), 400
     pw_hash = USERS.get(email)
     if not pw_hash or not check_password_hash(pw_hash, password):
         return jsonify(error="Невірний email або пароль"), 401

@@ -6,6 +6,8 @@
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-10-11
+
 ### Added
 - Технічне завдання (ТЗ.md) та обґрунтування моделі життєвого циклу (LIFECYCLE.md).
 - Політика версіонування SemVer + GitFlow (VERSIONING.md).
@@ -13,4 +15,5 @@
 - Каталог товарів: `GET /api/products` з фільтрами `category`, `size`; `GET /api/products/<id>`.
 - CI: запуск pytest у GitHub Actions на кожен push і pull request.
 - Вхід користувача: `POST /api/auth/login` (повертає токен).
+- Release-конвеєр: збірка zip-артефакту і GitHub Release на тег `v*`.
 

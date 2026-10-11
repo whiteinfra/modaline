@@ -1,0 +1,25 @@
+name: Release
+on:
+  push:
+    tags: ["v*.*.*"]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Тести перед релізом
+        run: pip install -r requirements.txt && pytest -q
+      - name: Перевірка, що тег збігається з файлом VERSION
+        run: test "v$(cat VERSION)" = "${GITHUB_REF_NAME}"
+      - name: Збірка реліз-артефакту
+        run: git archive --format=zip --prefix=modaline-${GITHUB_REF_NAME}/ -o modaline-${GITHUB_REF_NAME}.zip ${GITHUB_REF_NAME}
+      - name: Публікація GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: releases/RELEASE_${{ github.ref_name }}.md
+          files: modaline-${{ github.ref_name }}.zip

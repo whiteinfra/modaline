@@ -12,4 +12,5 @@
 - Шаблони: RELEASE_TEMPLATE.md, CHANGELOG.md, ACCEPTANCE_CHECKLIST.md.
 - Каталог товарів: `GET /api/products` з фільтрами `category`, `size`; `GET /api/products/<id>`.
 - CI: запуск pytest у GitHub Actions на кожен push і pull request.
+- Вхід користувача: `POST /api/auth/login` (повертає токен).
 
